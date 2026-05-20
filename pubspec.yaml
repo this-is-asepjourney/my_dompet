@@ -1,0 +1,56 @@
+name: my_dompet
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+
+  flutter:
+    sdk: flutter
+
+#State Management 
+  riverpod: ^2.0.0
+  flutter_riverpod: ^2.0.0
+  
+#Firebase
+  firebase_core: ^2.0.0
+  firebase_auth: ^4.0.0
+  cloud_firestore: ^4.0.0
+  firebase_storage: ^11.0.0
+  firebase_messaging: 14.7.10
+
+#ML & OCR
+  google_ml_kit: ^0.7.0
+
+#Voice Input
+  speech_to_text: ^5.0.0
+
+#UI & Charts
+  fl_chart: ^0.69.0
+  lottie: ^2.7.0
+  confetti: ^0.7.0
+
+#Navigation
+  go_router: ^5.0.0
+
+# Local Storage
+  hive_flutter: ^1.1.0
+  isar: ^3.1.0
+
+#Utilities
+  intl: ^0.17.0
+  image_picker: ^0.8.4+4
+  uuid: ^4.5.3
+  flutter_local_notifications: ^17.2.4
+  timezone: ^0.9.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
