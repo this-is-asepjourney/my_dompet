@@ -74,4 +74,21 @@ class UserModel {
     'createdAt': createdAt?.toIso8601String(),
     'updatedAt': updatedAt?.toIso8601String(),
   };
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      xp: (json['xp'] as num?)?.toInt() ?? 0,
+      level: (json['level'] as num?)?.toInt() ?? 1,
+      badge: json['badge'] as String? ?? '🌱 Pemula',
+      achievements: (json['achievements'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
+      totalSavings: (json['totalSavings'] as num?)?.toDouble() ?? 0,
+      goals: (json['goals'] as List<dynamic>?)?.map((g) => FinancialGoal.fromJson(g as Map<String, dynamic>)).toList() ?? [],
+      lastDailyClaim: json['lastDailyClaim'] as String?,
+      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
+      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+    );
+  }
 }

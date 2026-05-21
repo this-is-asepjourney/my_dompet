@@ -327,6 +327,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
               if (formKey.currentState?.validate() ?? false) {
                 final newBudget = BudgetModel(
                   id: DateTime.now().millisecondsSinceEpoch.toString(),
+                  userId: '', // TODO: Get current user ID
                   category: selectedCategory,
                   amount: double.parse(amountController),
                   month: DateTime.now(),
@@ -387,6 +388,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
               if (formKey.currentState?.validate() ?? false) {
                 final updatedBudget = BudgetModel(
                   id: budget.id,
+                  userId: budget.userId,
                   category: budget.category,
                   amount: double.parse(amountController.text),
                   month: budget.month,

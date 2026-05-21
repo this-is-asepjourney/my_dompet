@@ -34,6 +34,20 @@ class TransactionModel {
     'receiptImageUrl': receiptImageUrl,
     'ocrText': ocrText,
   };
+
+  factory TransactionModel.fromJson(Map<String, dynamic> json) {
+    return TransactionModel(
+      id: json['id'] as String? ?? '',
+      userId: json['userId'] as String? ?? '',
+      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
+      category: json['category'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      date: json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      type: json['type'] as String? ?? 'expense',
+      receiptImageUrl: json['receiptImageUrl'] as String?,
+      ocrText: json['ocrText'] as String?,
+    );
+  }
 }
 
 enum TransactionType { income, expense }

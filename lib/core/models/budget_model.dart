@@ -2,6 +2,7 @@
 
 class BudgetModel {
   final String id;
+  final String userId;
   final String category;
   final double amount;
   final double spent;
@@ -9,6 +10,7 @@ class BudgetModel {
 
   BudgetModel({
     required this.id,
+    required this.userId,
     required this.category,
     required this.amount,
     this.spent = 0,
@@ -20,6 +22,7 @@ class BudgetModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'userId': userId,
       'category': category,
       'amount': amount,
       'spent': spent,
@@ -29,11 +32,12 @@ class BudgetModel {
 
   factory BudgetModel.fromJson(Map<String, dynamic> json) {
     return BudgetModel(
-      id: json['id'],
-      category: json['category'],
-      amount: json['amount'],
-      spent: (json['spent'] as num?)?.toDouble() ?? 0,
-      month: DateTime.parse(json['month']),
+      id: json['id'] as String? ?? '',
+      userId: json['userId'] as String? ?? '',
+      category: json['category'] as String? ?? '',
+      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
+      spent: (json['spent'] as num?)?.toDouble() ?? 0.0,
+      month: json['month'] != null ? DateTime.parse(json['month']) : DateTime.now(),
     );
   }
 }

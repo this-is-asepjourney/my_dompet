@@ -11,7 +11,11 @@ import 'features/gamification/gamification_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    debugPrint('Firebase initialization failed (please run flutterfire configure): $e');
+  }
   runApp(ProviderScope(child: MyApp()));
 }
 
