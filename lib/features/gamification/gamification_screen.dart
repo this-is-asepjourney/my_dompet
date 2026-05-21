@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:confetti/confetti.dart';
 import '../../core/models/transaction_model.dart';
+import '../../core/models/user_model.dart';
 import '../../core/providers/gamification_provider.dart';
 import '../../core/providers/transaction_provider.dart';
 
@@ -11,10 +12,10 @@ class GamificationScreen extends ConsumerStatefulWidget {
   const GamificationScreen({super.key});
 
   @override
-  _GamificationScreenState createState() => _GamificationScreenState();
+  GamificationScreenState createState() => GamificationScreenState();
 }
 
-class _GamificationScreenState extends ConsumerState<GamificationScreen>
+class GamificationScreenState extends ConsumerState<GamificationScreen>
     with SingleTickerProviderStateMixin {
   late ConfettiController _confettiController;
   late AnimationController _animationController;
@@ -49,11 +50,11 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
     // Calculate stats for achievements
     final totalTransactions = transactions.length;
     final streak = _calculateStreak(transactions);
-    final achievements = _checkAchievements(user, transactions);
-    final nextLevelXP = _getNextLevelXP(user.level);
-    final currentLevelXP = _getLevelStartXP(user.level);
+    final achievements = _checkAchievements(user.user, transactions);
+    final nextLevelXP = _getNextLevelXP(user.user.level);
+    final currentLevelXP = _getLevelStartXP(user.user.level);
     final progressToNextLevel =
-        ((user.xp - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
+        ((user.user.xp - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
 
     return Stack(
       children: [
@@ -115,7 +116,7 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '${user.level}',
+                                            '${user.user.level}',
                                             style: TextStyle(
                                               fontSize: 48,
                                               fontWeight: FontWeight.bold,
@@ -140,7 +141,7 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
                           ),
                           SizedBox(height: 16),
                           Text(
-                            user.badge,
+                            user.user.badge,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -167,7 +168,7 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
                                 ),
                                 SizedBox(width: 8),
                                 Text(
-                                  '${user.xp} XP',
+                                  '${user.user.xp} XP',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -206,11 +207,11 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Progress ke Level ${user.level + 1}',
+                            'Progress ke Level ${user.user.level + 1}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${user.xp - currentLevelXP} / ${nextLevelXP - currentLevelXP} XP',
+                            '${user.user.xp - currentLevelXP} / ${nextLevelXP - currentLevelXP} XP',
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ],
@@ -329,7 +330,7 @@ class _GamificationScreenState extends ConsumerState<GamificationScreen>
                         itemCount: _allBadges.length,
                         itemBuilder: (context, index) {
                           final badge = _allBadges[index];
-                          final isUnlocked = user.level >= badge.minLevel;
+                          final isUnlocked = user.user.level >= badge.minLevel;
                           return _BadgeCard(
                             badge: badge,
                             isUnlocked: isUnlocked,

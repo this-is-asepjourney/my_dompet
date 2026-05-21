@@ -28,13 +28,13 @@ class TransactionNotifier extends StateNotifier<List<TransactionModel>> {
 
   double getTotalIncome(DateTime date) {
     return getTransactionsByMonth(date)
-        .where((t) => t.type == TransactionType.income)
+        .where((t) => t.type == 'income')
         .fold(0, (sum, t) => sum + t.amount);
   }
 
   double getTotalExpense(DateTime date) {
     return getTransactionsByMonth(date)
-        .where((t) => t.type == TransactionType.expense)
+        .where((t) => t.type == 'expense')
         .fold(0, (sum, t) => sum + t.amount);
   }
 }

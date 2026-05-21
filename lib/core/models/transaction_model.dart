@@ -7,7 +7,7 @@ class TransactionModel {
   final String category;
   final String description;
   final DateTime date;
-  final TransactionType type;
+  final String type;
   final String? receiptImageUrl;
   final String? ocrText;
 

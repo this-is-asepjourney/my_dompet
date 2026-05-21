@@ -52,14 +52,14 @@ class DashboardScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Halo, ${user.name}',
+                                  'Halo, ${user.user.name}',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
                                 ),
                                 Text(
-                                  'Level ${user.level} • ${user.badge}',
+                                  'Level ${user.user.level} • ${user.user.badge}',
                                   style: const TextStyle(color: Colors.white70),
                                 ),
                               ],
@@ -75,7 +75,7 @@ class DashboardScreen extends ConsumerWidget {
                                   const Icon(Icons.stars, color: Colors.amber),
                                   const SizedBox(width: 4),
                                   Text(
-                                    '${user.xp} XP',
+                                    '${user.user.xp} XP',
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
@@ -269,7 +269,7 @@ class _ActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -327,8 +327,8 @@ class _RecentTransactions extends StatelessWidget {
                 return ListTile(
                   leading: CircleAvatar(
                     backgroundColor: transaction.type == 'income'
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.red.withOpacity(0.1),
+                        ? Colors.green.withValues(alpha: 0.1)
+                        : Colors.red.withValues(alpha: 0.1),
                     child: Icon(
                       transaction.type == 'income'
                           ? Icons.trending_up

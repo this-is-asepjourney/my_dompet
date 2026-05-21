@@ -95,7 +95,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       ref.read(transactionProvider.notifier).addTransaction(transaction);
 
       // Add XP for adding transaction
-      ref.read(gamificationProvider.notifier).addXP(10);
+      ref.read(gamificationProvider.notifier).addXP('add_transaction');
 
       if (mounted) {
         Navigator.pop(context);
@@ -166,7 +166,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     ),
                     const SizedBox(height: 20),
                     DropdownButtonFormField<String>(
-                      value: _selectedCategory,
+                      initialValue: _selectedCategory,
                       items: _categories.map((cat) {
                         return DropdownMenuItem<String>(
                           value: cat,

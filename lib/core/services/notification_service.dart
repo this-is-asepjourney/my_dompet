@@ -77,4 +77,25 @@ class NotificationService {
       ),
     );
   }
+
+  Future<void> showLocalNotification(
+    String title,
+    String body,
+    String channelId,
+  ) async {
+    await _localNotifications.show(
+      DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channelId,
+          'General Notifications',
+          channelDescription: 'Notifikasi umum',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+      ),
+    );
+  }
 }

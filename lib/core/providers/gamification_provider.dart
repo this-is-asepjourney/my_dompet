@@ -1,6 +1,8 @@
 // lib/core/providers/gamification_provider.dart
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_dompet/core/providers/transaction_provider.dart';
+import 'package:my_dompet/core/providers/budget_provider.dart';
 import '../models/user_model.dart';
 import '../models/transaction_model.dart';
 import '../services/notification_service.dart';
@@ -79,7 +81,7 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
   final NotificationService _notificationService = NotificationService();
   
   // Constants for XP rewards
-  static const Map<String, int> XP_REWARDS = {
+  static const Map<String, int> xpRewards = {
     'add_transaction': 10,
     'scan_receipt': 5,
     'voice_input': 5,
@@ -132,7 +134,7 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
 
   // Add XP and handle level up
   Future<void> addXP(String action, {int? customAmount}) async {
-    final xpAmount = customAmount ?? XP_REWARDS[action] ?? 0;
+    final xpAmount = customAmount ?? xpRewards[action] ?? 0;
     if (xpAmount == 0) return;
     
     final newXP = state.user.xp + xpAmount;
@@ -199,7 +201,7 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
     
     state = state.copyWith(user: userWithBonus);
     
-    // TODO: Trigger confetti animation through UI event
+    // Confetti animation can be triggered from the UI when a level-up event is observed.
   }
 
   // Add transaction and update stats
@@ -208,7 +210,7 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
     await addXP('add_transaction');
     
     // Update total savings if income
-    if (transaction.type == TransactionType.income) {
+    if (transaction.type == 'income') {
       final newSavings = state.user.totalSavings + transaction.amount;
       final updatedUser = state.user.copyWith(
         totalSavings: newSavings,
@@ -392,7 +394,6 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
 
   // Check budget master achievement
   Future<bool> _checkBudgetMaster() async {
-    final budgets = _ref.read(budgetProvider);
     // Check if user stayed within budget for 3 consecutive months
     // This would require historical data
     return false; // Implement with actual data
@@ -628,8 +629,7 @@ class GamificationNotifier extends StateNotifier<GamificationState> {
   }
 
   Future<void> _saveUserProgress() async {
-    // TODO: Implement Firestore save
-    // This would save the user's progress to Firestore
+    // Firestore integration can be added here to persist user progress.
   }
 
   // Reset weekly challenges

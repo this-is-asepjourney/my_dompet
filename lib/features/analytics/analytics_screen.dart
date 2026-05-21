@@ -115,7 +115,7 @@ class AnalyticsScreen extends ConsumerWidget {
                               barWidth: 3,
                               belowBarData: BarAreaData(
                                 show: true,
-                                color: Colors.blue.withOpacity(0.1),
+                                color: Colors.blue.withValues(alpha: 0.1),
                               ),
                             ),
                           ],
@@ -138,7 +138,7 @@ class AnalyticsScreen extends ConsumerWidget {
     Map<String, double> result = {};
     
     transactions.where((t) => 
-      t.type == TransactionType.expense &&
+      t.type == 'expense' &&
       t.date.month == month.month &&
       t.date.year == month.year
     ).forEach((t) {
@@ -152,7 +152,7 @@ class AnalyticsScreen extends ConsumerWidget {
     List<double> dailySpending = List.filled(DateTime(month.year, month.month + 1, 0).day, 0.0);
     
     transactions.where((t) => 
-      t.type == TransactionType.expense &&
+      t.type == 'expense' &&
       t.date.month == month.month &&
       t.date.year == month.year
     ).forEach((t) {
@@ -198,7 +198,7 @@ class _PredictionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final lastMonth = DateTime.now().subtract(Duration(days: 30));
     final lastMonthExpense = transactions
-        .where((t) => t.type == TransactionType.expense && t.date.isAfter(lastMonth))
+        .where((t) => t.type == 'expense' && t.date.isAfter(lastMonth))
         .fold(0.0, (sum, t) => sum + t.amount);
     
     final prediction = lastMonthExpense * 1.05; // 5% increase prediction

@@ -224,8 +224,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
     final Map<String, double> expenses = {};
     
     for (final transaction in transactions) {
-      // FIX 4: Bandingkan dengan TransactionType enum, bukan String
-      if (transaction.type == TransactionType.expense) {
+      if (transaction.type == 'expense') {
         if (transaction.date.year == month.year && 
             transaction.date.month == month.month) {
           expenses[transaction.category] = (expenses[transaction.category] ?? 0) + transaction.amount;
@@ -279,7 +278,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               DropdownButtonFormField<String>(
-                value: selectedCategory,
+                initialValue: selectedCategory,
                 items: _categories.map((cat) {
                   return DropdownMenuItem(
                     value: cat,

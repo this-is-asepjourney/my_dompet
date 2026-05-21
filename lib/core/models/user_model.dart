@@ -1,4 +1,6 @@
 // lib/core/models/user_model.dart (update)
+import 'financial_goal_model.dart';
+
 class UserModel {
   final String id;
   final String email;

@@ -20,6 +20,13 @@ class VoiceService {
         _isListening = true;
         String? transcription;
 
+         Future<String> listenForTransaction() async {
+    if (!_isListening) {
+      final available = await initialize();
+      if (available) {
+        _isListening = true;
+        String? transcription;
+
         await _speech.listen(
           onResult: (result) {
             transcription = result.recognizedWords;
@@ -28,6 +35,12 @@ class VoiceService {
           listenFor: const Duration(seconds: 5),
           pauseFor: const Duration(seconds: 2),
         );
+
+        return transcription ?? '';
+      }
+    }
+    return '';
+  }
 
         return transcription ?? '';
       }
